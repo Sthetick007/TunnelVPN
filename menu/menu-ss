@@ -1,0 +1,18 @@
+#!/bin/bash
+BICyan='\033[1;96m';BIWhite='\033[1;97m';YELLOW='\033[0;33m';NC='\033[0m'
+DOMAIN=$(cat /etc/xray/domain 2>/dev/null); IP=$(cat /etc/myipvps 2>/dev/null)
+[ -z "$DOMAIN" ] && DOMAIN="$IP"
+SS_PASS=$(cat /etc/xray/passwd 2>/dev/null)
+clear
+echo -e "${BICyan} ┌─────────────────────────────────────────────┐${NC}"
+echo -e "        ${BIWhite}SHADOWSOCKS MENU${NC}"
+echo -e "${BICyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "  ${YELLOW}Server  ${NC}: $DOMAIN"
+echo -e "  ${YELLOW}Port    ${NC}: 80 (WS) / 443 (WS+TLS)"
+echo -e "  ${YELLOW}Method  ${NC}: aes-128-gcm"
+echo -e "  ${YELLOW}Password${NC}: $SS_PASS"
+echo -e "  ${YELLOW}Path    ${NC}: /ss-ws"
+echo -e "${BICyan}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo "  [x] Back"
+read -rp " Select: " o
+case $o in x|X) menu;; *) menu-ss;; esac
