@@ -145,7 +145,7 @@ echo -e "\e[33m DOMAIN        \e[0m:  $domain"
 echo -e "\e[33m DATE & TIME   \e[0m:  $DATE2"	
 echo -e "\e[33m UPTIME        \e[0m:  $uptime"
 echo -e "\e[33m ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m" | lolcat
-echo -e "                @Sthetick007                "
+echo -e "                    Sthetick                    "
 echo -e " Sthetick "
 echo -e "\e[33m ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m" | lolcat
 echo -e "                 • SCRIPT MENU •                 "
