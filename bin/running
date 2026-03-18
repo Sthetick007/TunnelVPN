@@ -48,7 +48,7 @@ dropbear_status=$(/etc/init.d/dropbear status | grep Active | awk '{print $3}' |
 ssh_service=$(/etc/init.d/ssh status | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 vnstat_service=$(/etc/init.d/vnstat status | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 cron_service=$(/etc/init.d/cron status | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
-fail2ban_service=$(/etc/init.d/fail2ban status | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
+fail2ban_service=$(systemctl is-active fail2ban)
 wstls=$(systemctl status ws-stunnel | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 wsdrop=$(systemctl status ws-nontls | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 udpc=$(systemctl status udp-custom | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
@@ -126,7 +126,7 @@ else
 fi
 
 # STATUS SERVICE  FAIL2BAN 
-if [[ $fail2ban_service == "running" ]]; then 
+if [[ $fail2ban_service == "active" ]]; then 
    status_fail2ban=" ${GREEN}Running ${NC}( No Error )"
 else
    status_fail2ban="${RED}  Not Running ${NC}  ( Error )"
@@ -207,9 +207,9 @@ echo -e "❇️ Domain      : $Domen"
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m${NC}"
 echo -e "\E[44;1;39m          ⇱ Subscription Information ⇲          \E[0m"
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m${NC}"
-echo -e "❇️ Client Name :  Smart Tunnel"
-echo -e "❇️ Exp Script  : <=====SMART TUNNEL=====>"
-echo -e "❇️ Version     : @SMARTTUNNEL 1.0 (beta)"
+echo -e "❇️ Client Name :  Hex Tunnel"
+echo -e "❇️ Exp Script  : <=====HEX TUNNEL=====>"
+echo -e "❇️ Version     : @Sthetick007 1.0 (beta)"
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m${NC}"
 echo -e "\E[44;1;39m            ⇱ Service Information ⇲             \E[0m"
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m${NC}"
