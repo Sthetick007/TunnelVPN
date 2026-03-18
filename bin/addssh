@@ -1,0 +1,64 @@
+#!/bin/bash
+#Funnyvpn
+#Rerechan02
+#Rayzell25
+#Nuralfiya
+#em0zz
+#naravpn.com
+#indo-ssh.com
+#indossh
+#Skc
+clear
+#=========================================================================================================================
+#Color
+HEART_RED='\033[0;91m'  # Changed color to a brighter red
+NC='\033[0m'
+GREEN='\033[0;91m'      # Changed color to a brighter red
+ORANGE='\033[0;91m'     # Changed color to a brighter red
+BLUE='\033[0;91m'       # Changed color to a brighter red
+PURPLE='\033[0;91m'     # Changed color to a brighter red
+CYAN='\033[0;91m'       # Changed color to a brighter red
+LIGHT='\033[0;91m'      # Changed color to a brighter red
+#INPUT SSH
+domain=$(cat /etc/xray/domain)
+clear
+echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+echo -e "\E[40;1;37m            SSH Account            \E[0m"
+echo -e "\e[33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+read -p "Username : " Login
+read -p "Password : " Pass
+read -p "Expired (Days): " masaaktif
+clear
+systemctl restart ws-stunnel
+systemctl restart ws-nontls
+systemctl restart dropbear
+systemctl restart ssh
+useradd -e `date -d "$masaaktif days" +"%Y-%m-%d"` -s /bin/false -M $Login
+expi="$(chage -l $Login | grep "Account expires" | awk -F": " '{print $2}')"
+echo -e "$Pass\n$Pass\n"|passwd $Login &> /dev/null
+hariini=`date -d "0 days" +"%Y-%m-%d"`
+expi=`date -d "$masaaktif days" +"%Y-%m-%d"`
+echo -e ""
+clear
+echo -e "${HEART_RED}══════════════════════════"
+echo -e "    <=  SSH ACCOUNT   =>"
+echo -e "══════════════════════════${NC}"
+echo -e ""
+echo -e "${HEART_RED}MADE BY      : SMARTXHACKER${NC}"
+echo -e "${HEART_RED}Username     : $Login${NC}"
+echo -e "${HEART_RED}Password     : $Pass${NC}"
+echo -e "${HEART_RED}Host/IP      : $(cat /etc/xray/domain)${NC}"
+echo -e "${HEART_RED}Udp Custom   : 1-65535${NC}"
+echo -e "${HEART_RED}Port ssl/tls : 443${NC}"
+echo -e "${HEART_RED}Port non tls : 80, 2082, 8080${NC}"
+echo -e "${HEART_RED}Udpgw/Badvpn : 7200${NC}"
+echo -e "${HEART_RED}Port ssh     : 53, 22, 3303 (53 FOR JIO 5G DON'T USE PAYLOAD)${NC}"
+echo -e ""
+echo -e "${HEART_RED}══════════════════════════${NC}"
+echo -e "${HEART_RED}Payload Ws   => GET / HTTP/1.1[crlf]Host: $(cat /etc/xray/domain)[crlf]Upgrade: websocket[crlf][crlf]${NC}"
+echo -e "${HEART_RED}══════════════════════════${NC}"
+echo -e "${HEART_RED}Expired => $expi${NC}"
+echo -e "${HEART_RED}══════════════════════════${NC}"
+echo -e ""
+read -n 1 -s -r -p "Press any key to back on menu"
+menu

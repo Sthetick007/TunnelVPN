@@ -1,0 +1,31 @@
+#!/bin/bash
+RED='\033[0;31m';GREEN='\033[0;32m';YELLOW='\033[0;33m';NC='\033[0m';BICyan='\033[1;96m';BIWhite='\033[1;97m'
+CONFIG="/etc/xray/config.json"
+_del() {
+  clear; echo -e "${BICyan}━━ DELETE VLESS USER ━━━━━━━━━━━━━━━━━━━━${NC}"
+  grep "^#vlsg " "$CONFIG" | awk '{print NR") "$2" exp:"$3}'
+  read -rp "Username: " u
+  exp=$(grep -w "^#vlsg $u" "$CONFIG" | awk '{print $3}' | head -1)
+  sed -i "/^#vls $u $exp/,/^},{/d" "$CONFIG"; sed -i "/^#vlsg $u $exp/,/^},{/d" "$CONFIG"
+  systemctl restart xray >/dev/null 2>&1; echo "Deleted $u"
+  read -n1 -s -r -p "Press any key..."; menu-vless
+}
+_renew() {
+  clear; echo -e "${BICyan}━━ RENEW VLESS USER ━━━━━━━━━━━━━━━━━━━━━${NC}"
+  grep "^#vlsg " "$CONFIG" | awk '{print NR") "$2" exp:"$3}'
+  read -rp "Username: " u; read -rp "Days to add: " d
+  exp=$(grep -w "^#vlsg $u" "$CONFIG" | awk '{print $3}' | head -1)
+  [ -z "$exp" ] && echo "Not found" && read -n1 -s -r -p "..." && menu-vless && return
+  left=$(( ($(date -d "$exp" +%s)-$(date +%s))/86400 ))
+  new_exp=$(date -d "$((left+d)) days" +"%Y-%m-%d")
+  sed -i "/#vlsg $u/c\\#vlsg $u $new_exp" "$CONFIG"; sed -i "/#vls $u/c\\#vls $u $new_exp" "$CONFIG"
+  systemctl restart xray >/dev/null 2>&1; echo "Renewed until $new_exp"
+  read -n1 -s -r -p "Press any key..."; menu-vless
+}
+clear
+echo -e "${BICyan} ┌─────────────────────────────────────────────┐${NC}"
+echo -e "        ${BIWhite}VLESS MENU${NC}"
+echo -e "   ${BICyan}[1]${NC} Add     ${BICyan}[2]${NC} Delete     ${BICyan}[3]${NC} Renew     ${BICyan}[x]${NC} Back"
+echo -e "${BICyan} └─────────────────────────────────────────────┘${NC}"
+read -rp " Select: " o
+case $o in 1) add-vless;; 2) _del;; 3) _renew;; x|X) menu;; *) menu-vless;; esac
