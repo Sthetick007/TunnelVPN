@@ -44,7 +44,7 @@ echo -e "${HEART_RED}═══════════════════�
 echo -e "    <=  SSH ACCOUNT   =>"
 echo -e "══════════════════════════${NC}"
 echo -e ""
-echo -e "${HEART_RED}MADE BY      : SMARTXHACKER${NC}"
+echo -e "${HEART_RED}MADE BY      : Sthetick${NC}"
 echo -e "${HEART_RED}Username     : $Login${NC}"
 echo -e "${HEART_RED}Password     : $Pass${NC}"
 echo -e "${HEART_RED}Host/IP      : $(cat /etc/xray/domain)${NC}"
